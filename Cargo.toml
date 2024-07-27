@@ -4,6 +4,11 @@ version = "0.1.0"
 links = "libswisseph"
 build = "build.rs"
 edition = "2021"
+authors = ["Jon <jonrowlands83@gmail.com>"]
+description = "Rust system wrapper for swisseph C library"
+license = "AGPL-3.0"
+license-file = "agpl-3.0.txt"
+keywords = ["ephemeris", "astrology", "astronomy", "space", "planet", "astro", "zodiac", "zodiacal"]
 exclude = [
     "libswisseph/ci/*",
     "libswisseph/docs/*",
@@ -23,4 +28,5 @@ libc = "0.2"
 pkg-config = "0.3.15"
 cc = { version = "1.0.43", features = ['parallel'] }
 bindgen = "0.65.1"
+
 
