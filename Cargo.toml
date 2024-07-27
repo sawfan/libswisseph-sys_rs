@@ -1,0 +1,26 @@
+[package]
+name = "libswisseph-sys"
+version = "0.1.0"
+links = "libswisseph"
+build = "build.rs"
+edition = "2021"
+exclude = [
+    "libswisseph/ci/*",
+    "libswisseph/docs/*",
+    "libswisseph/examples/*",
+    "libswisseph/fuzzers/*",
+    "libswisseph/tests/*",
+]
+
+[lib]
+name = "libswisseph_sys"
+path = "lib.rs"
+
+[dependencies]
+libc = "0.2"
+
+[build-dependencies]
+pkg-config = "0.3.15"
+cc = { version = "1.0.43", features = ['parallel'] }
+bindgen = "0.65.1"
+
