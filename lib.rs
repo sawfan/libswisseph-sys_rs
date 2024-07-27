@@ -31,12 +31,11 @@ mod tests {
                 serr.as_mut_ptr(),
             );
 
-            //'name' => swe_get_planet_name($i),
             let _lng = xx[0];
             let _lat = xx[1];
             let _speed = xx[3];
 
-            panic!("YO: {:#?}", xx);
+            //panic!("YO: {:#?}", xx);
         }
     }
 
