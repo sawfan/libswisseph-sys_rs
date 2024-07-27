@@ -28,10 +28,16 @@ let _lat = xx[1];
 let _speed = xx[3];
 ```
 
-
 ## swisseph docs
 https://www.astro.com/swisseph/swephprg.htm
 https://www.astro.com/ftp/swisseph/doc/swisseph.pdf
+
+## TODO
+* See if bindgen can generate more ergonomic integer types. There is some discrepancy 
+  between signed and unsigned types for functions and constants.
+* There are a couple of header files that are not included because of overlapping function
+  names
+* bindgen throws a lot of warnings about ffi not supporting u128 types
 
 ## Credit
  * Astrodienst / @aloistr for swisseph
