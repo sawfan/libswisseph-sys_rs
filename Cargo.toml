@@ -10,11 +10,7 @@ repository = "https://github.com/jgrowl/libswisseph-sys_rs"
 license = "AGPL-3.0-only"
 keywords = ["ephemeris", "astrology", "astronomy", "space", "planet", "astro", "zodiac", "zodiacal"]
 exclude = [
-    "libswisseph/ci/*",
-    "libswisseph/docs/*",
-    "libswisseph/examples/*",
-    "libswisseph/fuzzers/*",
-    "libswisseph/tests/*",
+    "libswisseph",
 ]
 
 [lib]
