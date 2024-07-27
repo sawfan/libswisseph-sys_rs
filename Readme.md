@@ -30,6 +30,7 @@ let _speed = xx[3];
 
 
 ## swisseph docs
+https://www.astro.com/swisseph/swephprg.htm
 https://www.astro.com/ftp/swisseph/doc/swisseph.pdf
 
 ## Credit
