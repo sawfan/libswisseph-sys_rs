@@ -6,6 +6,7 @@ build = "build.rs"
 edition = "2021"
 authors = ["Jon <jonrowlands83@gmail.com>"]
 description = "Rust system wrapper for swisseph C library"
+repository = "https://github.com/jgrowl/libswisseph-sys_rs"
 license = "AGPL-3.0"
 license-file = "agpl-3.0.txt"
 keywords = ["ephemeris", "astrology", "astronomy", "space", "planet", "astro", "zodiac", "zodiacal"]
