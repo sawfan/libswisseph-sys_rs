@@ -8,7 +8,7 @@ authors = ["Jon <jonrowlands83@gmail.com>"]
 description = "Rust system wrapper for swisseph C library"
 repository = "https://github.com/jgrowl/libswisseph-sys_rs"
 license = "AGPL-3.0-only"
-keywords = ["ephemeris", "astrology", "astronomy", "space", "planet", "astro", "zodiac", "zodiacal"]
+keywords = ["ephemeris", "astrology", "astronomy", "zodiac", "zodiacal"]
 exclude = [
     "libswisseph/doc",
     "libswisseph/windows",
