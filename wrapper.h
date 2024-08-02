@@ -9,8 +9,9 @@
 #include "libswisseph/swenut2000a.h"
 #include "libswisseph/sweephe4.h"
 
-// // prob a windows thing
+// // Windows DLL 
 //#include "libswisseph/swedll.h"
 //
 //// swedate include jul function that is already in exp
 //#include "libswisseph/swedate.h"
+
