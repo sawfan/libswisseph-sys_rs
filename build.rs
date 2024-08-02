@@ -7,10 +7,7 @@ use std::process::Command;
 
 use bindgen::callbacks::{ MacroParsingBehavior, ParseCallbacks };
 
-
-
 fn main() {
-
     if !Path::new("swisseph").exists() {
         let _ = Command::new("git")
             .args(&["submodule", "update", "--init", "libswisseph"])
@@ -18,23 +15,29 @@ fn main() {
     }
 
     let mut cfg = cc::Build::new();
-    //cfg.warnings(false);
     add_c_files(&mut cfg, "libswisseph");
     cfg.compile("swisseph");
 
     let macros = Arc::new(RwLock::new(HashSet::new()));
     let bindings = bindgen::Builder::default()
         .header("wrapper.h")
+        .blocklist_function("__.*")
         .parse_callbacks(Box::new(MacroCallback {macros: macros.clone()}))
         .generate()
         .expect("Unable to generate bindings");
-
 
     // Write the bindings to the $OUT_DIR/bindings.rs file.
     let out_path = PathBuf::from(env::var("OUT_DIR").unwrap());
     bindings
         .write_to_file(out_path.join("bindings.rs"))
         .expect("Couldn't write bindings!");
+
+
+    //println!("cargo:rustc-link-search=libswisseph");
+    //println!("cargo:rustc-link-lib=swe");
+    //println!("cargo:rustc-link-lib=swevents");
+   
+    println!("cargo:rustc-link-lib=swisseph");
 }
 
 fn add_c_files(build: &mut cc::Build, path: impl AsRef<Path>) {
@@ -62,6 +65,29 @@ fn add_c_files(build: &mut cc::Build, path: impl AsRef<Path>) {
                 }
             }
         }
+    }
+}
+
+#[derive(Debug)]
+struct MacroCallback {
+    macros: Arc<RwLock<HashSet<String>>>,
+}
+
+impl ParseCallbacks for MacroCallback {
+    fn will_parse_macro(&self, name: &str) -> MacroParsingBehavior {
+        self.macros.write().unwrap().insert(name.into());
+
+        // Ignoring these because errors are thrown about duplicate definitions
+        if name == "FP_NORMAL" 
+        || name == "FP_SUBNORMAL" 
+        || name == "FP_ZERO" 
+        || name == "FP_NAN" 
+        || name == "FP_INFINITE" 
+        {
+            return MacroParsingBehavior::Ignore;
+        }
+
+        MacroParsingBehavior::Default
     }
 }
 
@@ -109,75 +135,29 @@ fn add_c_files(build: &mut cc::Build, path: impl AsRef<Path>) {
 //}
 //
 //
-
-
-//    cfg.include(&include)
-//        .include("libgit2/src/libgit2")
-//        .include("libgit2/src/util")
-//        .out_dir(dst.join("build"))
-//        .warnings(false);
-
-    //add_h_files(&mut cfg, "libswisseph");
-    //cfg.flag("-g");
-    //cfg.flag("-Wall");
+//    //add_h_files(&mut cfg, "libswisseph");
 //
 //
+//    //
+//   //let dst = PathBuf::from(env::var_os("OUT_DIR").unwrap());
+//   //let include = dst.join("include");
 //
+//   //fs::create_dir_all(&include).unwrap();
 //
+//   // Copy over all header files
+//   //cp_r("libswisseph", &include);
 //
-//
-//
-   //println!("cargo:rustc-link-lib=foo");
-    //
-   //let dst = PathBuf::from(env::var_os("OUT_DIR").unwrap());
-   //let include = dst.join("include");
-
-   //fs::create_dir_all(&include).unwrap();
-
-   // Copy over all header files
-   //cp_r("libswisseph", &include);
-
 //    cfg.include(&include)
 //     //  .include("libswisseph")
 //        .out_dir(dst.join("build"))
 //       // .warnings(true); // Turns on -Wall, enabled by default
 //        .warnings(false); // Turns on -Wall, enabled by default
-    //
-    //cfg.include(&include);
-    //cfg.out_dir(dst.join("build"));
+//    //
+//    //cfg.include(&include);
+//    //cfg.out_dir(dst.join("build"));
 //
 //
 //
-    // BIND STUFF BELOW
-
-    // Tell cargo to look for shared libraries in the specified directory
-    //println!("cargo:rustc-link-search=/path/to/lib");
-    //println!("cargo:rustc-link-search=/home/yoni/Code/personal/libswisseph-sys/libswisseph");
-
-
-    // Tell cargo to tell rustc to link the system bzip2
-    // shared library.
-    //println!("cargo:rustc-link-lib=swisseph");
-
-#[derive(Debug)]
-struct MacroCallback {
-    macros: Arc<RwLock<HashSet<String>>>,
-}
-
-impl ParseCallbacks for MacroCallback {
-    fn will_parse_macro(&self, name: &str) -> MacroParsingBehavior {
-        self.macros.write().unwrap().insert(name.into());
-
-        // Ignoring these because errors are thrown about duplicate definitions
-        if name == "FP_NORMAL" 
-        || name == "FP_SUBNORMAL" 
-        || name == "FP_ZERO" 
-        || name == "FP_NAN" 
-        || name == "FP_INFINITE" 
-        {
-            return MacroParsingBehavior::Ignore;
-        }
-
-        MacroParsingBehavior::Default
-    }
-}
+//
+//    //println!("cargo:rustc-link-lib=swisseph");
+//
