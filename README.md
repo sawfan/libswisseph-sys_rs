@@ -2,6 +2,24 @@
 
 Rust system wrapper for the swisseph C library
 
+## Usage
+
+By default, the main pub export will be the raw bindgen generated files. These bindings require
+the user to know what types the functions expect as many of the functions take pointers to 
+arrays of varying sizes.
+
+`use libswisseph_sys::*;`
+
+
+### TODO: in progress
+
+Also included is a tuple_result mod that provides functions where all the return data is
+created and returned from the function itself. Error codes are also checked and the entire
+calculation is wrapped in a Result type so rust users can do a standard check for Ok or Err.
+
+`use libswisseph_sys::tuple_result::*;`
+
+
 ## Ephemeris files
 
 Ephemeris files are excluded from this crate so that it fits on crates.io. 
@@ -43,25 +61,34 @@ let _speed = xx[3];
 ## TODO
 * See if bindgen can generate more ergonomic integer types. There is some discrepancy 
   between signed and unsigned types for functions and constants.
-* There are a couple of header files that are not included because of overlapping function
-  names
+  For example, SE_ERR is -1 and it generates a i32, but SE_OK is 0 so a u32 is generated.
  
 ## swisseph docs
 
 https://www.astro.com/swisseph/swephprg.htm
 https://www.astro.com/ftp/swisseph/doc/swisseph.pdf
 
-## Credit
+## Credits
 
  * Astrodienst / @aloistr for swisseph
  * Stéphane Bressani / @stephaneworkspace for work on his wrapper and rust project
 
 ## Notes
 
+### u128 warnings
+
+Rustc u128 is not ffi safe. Any functions that reference u128 have been ignored to prevent
+compilation errors.
+
 ### Added the swisseph c lib as submodule
 
 git submodule add https://github.com/aloistr/swisseph.git libswisseph/
 
-### u128 warnings
+### Functions not included
 
-Rustc u128 is not ffi safe. Warnings may be thrown on compilation
+There is some functionality provided by the Swiss Ephemeris that are not referenced in
+header files and thus will not be included. Several of the files include main function,
+for example the swevents does event calculation and outputs to local file.
+
+swedates also has overlapping types that causes errors so it has not been included.
+
