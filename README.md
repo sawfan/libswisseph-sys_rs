@@ -8,29 +8,7 @@ By default, the main pub export will be the raw bindgen generated files. These b
 the user to know what types the functions expect as many of the functions take pointers to 
 arrays of varying sizes.
 
-`use libswisseph_sys::*;`
-
-
-### TODO: in progress
-
-Also included is a tuple_result mod that provides functions where all the return data is
-created and returned from the function itself. Error codes are also checked and the entire
-calculation is wrapped in a Result type so rust users can do a standard check for Ok or Err.
-
-`use libswisseph_sys::tuple_result::*;`
-
-
-## Ephemeris files
-
-Ephemeris files are excluded from this crate so that it fits on crates.io. 
-There are standard standard ephemeris files located in the swisseph c library
-and there are many more that can be included depending on the desired calculation.
-For example: astroids, JPL, etc.
-
-The ephemeris path with default to and can be set as described in the swisseph C library.
-See https://github.com/aloistr/swisseph/ for further details.
-
-## Example usage
+### Example usage
 
 ```rust
 use libswisseph_sys::*;
@@ -58,6 +36,26 @@ let _lat = xx[1];
 let _speed = xx[3];
 ```
 
+### tuple_result aka a thin more rusty (WIP)
+
+Also included is a tuple_result mod that provides functions where all the return data is
+created and returned from the function itself. Error codes are also checked and the entire
+calculation is wrapped in a Result type so rust users can do a standard check for Ok or Err.
+
+`use libswisseph_sys::tuple_result::*;`
+
+
+## Ephemeris files
+
+Ephemeris files are excluded from this crate so that it fits on crates.io. 
+There are standard standard ephemeris files located in the swisseph c library
+and there are many more that can be included depending on the desired calculation.
+For example: astroids, JPL, etc.
+
+The ephemeris path with default to and can be set as described in the swisseph C library.
+See https://github.com/aloistr/swisseph/ for further details.
+
+
 ## Troubleshooting
 
 If there is an error like the following, it probably means that the official swisseph project added new source code that we don't want to
@@ -70,7 +68,7 @@ compile here and we can add it to an excludes list in the `build.rs`.
 ```
 
 There are several files that, for example, contain main functions that are intended to be different binaries and is handled by their makefile.
-Our project doesn't know about this though so they have to manually be excluded.
+This project has to manually be exclude what is not needed.
 
 ## TODO
 * instead of having an exclude list in the build.rs, maybe only include the known necessary files. This would still require us to update this library
