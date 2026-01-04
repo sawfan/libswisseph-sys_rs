@@ -90,6 +90,13 @@ https://www.astro.com/ftp/swisseph/doc/swisseph.pdf
 
 ## Notes
 
+### License
+
+The swisseph project is released under AGPL and a commercial license. This wrapper library calls
+functions directly and must also be included under the AGPL lisense.
+
+See swisseph project for more details.
+
 ### u128 warnings
 
 Rustc u128 is not ffi safe. Any functions that reference u128 have been ignored to prevent
