@@ -58,7 +58,24 @@ let _lat = xx[1];
 let _speed = xx[3];
 ```
 
+## Troubleshooting
+
+If there is an error like the following, it probably means that the official swisseph project added new source code that we don't want to
+compile here and we can add it to an excludes list in the `build.rs`.
+
+```
+ cargo:warning=libswisseph/sweephe4.c: In function 'my_makepath':
+  cargo:warning=libswisseph/sweephe4.c:673:9: error: conflicting types for 'getenv'; have 'char *(void)'
+  cargo:warning=  673 |   char *getenv();
+```
+
+There are several files that, for example, contain main functions that are intended to be different binaries and is handled by their makefile.
+Our project doesn't know about this though so they have to manually be excluded.
+
 ## TODO
+* instead of having an exclude list in the build.rs, maybe only include the known necessary files. This would still require us to update this library
+  any time something was added that we do want to include though.
+
 * See if bindgen can generate more ergonomic integer types. There is some discrepancy 
   between signed and unsigned types for functions and constants.
   For example, SE_ERR is -1 and it generates a i32, but SE_OK is 0 so a u32 is generated.
