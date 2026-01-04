@@ -1,11 +1,11 @@
+use std::collections::HashSet;
 use std::env;
 use std::io;
 use std::path::{Path, PathBuf};
-use std::sync::{Arc, RwLock};
-use std::collections::HashSet;
 use std::process::Command;
+use std::sync::{Arc, RwLock};
 
-use bindgen::callbacks::{ MacroParsingBehavior, ParseCallbacks };
+use bindgen::callbacks::{MacroParsingBehavior, ParseCallbacks};
 
 fn main() {
     if !Path::new("swisseph").exists() {
@@ -107,8 +107,9 @@ fn main() {
         .blocklist_function("fcvt_r")
         .blocklist_function("wctomb")
         .blocklist_function("mblen")
-
-        .parse_callbacks(Box::new(MacroCallback {macros: macros.clone()}))
+        .parse_callbacks(Box::new(MacroCallback {
+            macros: macros.clone(),
+        }))
         .generate()
         .expect("Unable to generate bindings");
 
@@ -118,11 +119,10 @@ fn main() {
         .write_to_file(out_path.join("bindings.rs"))
         .expect("Couldn't write bindings!");
 
-
     //println!("cargo:rustc-link-search=libswisseph");
     //println!("cargo:rustc-link-lib=swe");
     //println!("cargo:rustc-link-lib=swevents");
-   
+
     println!("cargo:rustc-link-lib=swisseph");
 }
 
@@ -143,7 +143,12 @@ fn add_c_files(build: &mut cc::Build, path: impl AsRef<Path>) {
         } else if path.extension().and_then(|s| s.to_str()) == Some("c") {
             if let Some(stem) = path.file_stem() {
                 let exclude_because_has_main = vec![
-                    "sweasp", "swetest", "swevents", "swephgen4", "swemini"
+                    "sweasp",
+                    "swetest",
+                    "swevents",
+                    "swephgen4",
+                    "swemini",
+                    "sweephe4",
                 ];
 
                 if !exclude_because_has_main.contains(&(stem.to_str().unwrap())) {
@@ -164,11 +169,11 @@ impl ParseCallbacks for MacroCallback {
         self.macros.write().unwrap().insert(name.into());
 
         // Ignoring these because errors are thrown about duplicate definitions
-        if name == "FP_NORMAL" 
-        || name == "FP_SUBNORMAL" 
-        || name == "FP_ZERO" 
-        || name == "FP_NAN" 
-        || name == "FP_INFINITE" 
+        if name == "FP_NORMAL"
+            || name == "FP_SUBNORMAL"
+            || name == "FP_ZERO"
+            || name == "FP_NAN"
+            || name == "FP_INFINITE"
         {
             return MacroParsingBehavior::Ignore;
         }
@@ -176,7 +181,6 @@ impl ParseCallbacks for MacroCallback {
         MacroParsingBehavior::Default
     }
 }
-
 
 //fn add_h_files(build: &mut cc::Build, path: impl AsRef<Path>) {
 //    let path = path.as_ref();
