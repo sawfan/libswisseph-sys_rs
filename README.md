@@ -2,13 +2,11 @@
 
 Rust system wrapper for the swisseph C library
 
-## Usage
+## Abstraction Levels & Usage
 
-By default, the main pub export will be the raw bindgen generated files. These bindings require
-the user to know what types the functions expect as many of the functions take pointers to 
-arrays of varying sizes.
-
-### Example usage
+### raw
+  unsafe c types straight from bindgen. Caller typically will have to initialize an array (types and sizes) that will be filled out with return data. 
+  Caller will have to know how how the return data is structured. Many of the functions take pointers to arrays of varying sizes. 
 
 ```rust
 use libswisseph_sys::*;
@@ -36,13 +34,21 @@ let _lat = xx[1];
 let _speed = xx[3];
 ```
 
-### tuple_result aka a thin more rusty (WIP)
+### tuple (WIP)
 
-Also included is a tuple_result mod that provides functions where all the return data is
-created and returned from the function itself. Error codes are also checked and the entire
-calculation is wrapped in a Result type so rust users can do a standard check for Ok or Err.
+Return types are created inside function call and return types are defined by tuples instead of array indexes.
+Error codes are also checked and the entire calculation is wrapped in a Result type so rust users can do a standard check for Ok or Err.
+
+TODO: Determine if it would be worth being able to get tuple results without creating the return object inside of the function. Could provide a more
+efficient way of still getting an ergonomic return, but still be able to reuse return objects for performance.
+
 
 `use libswisseph_sys::tuple_result::*;`
+
+
+### safe
+
+raw c types wrapped in safe blocks (To avoid having caller write unsafe blocks everywhere). TODO: determine if this section should be deprecated. 
 
 
 ## Ephemeris files
