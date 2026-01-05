@@ -8,6 +8,8 @@ Rust system wrapper for the swisseph C library
   unsafe c types straight from bindgen. Caller typically will have to initialize an array (types and sizes) that will be filled out with return data. 
   Caller will have to know how how the return data is structured. Many of the functions take pointers to arrays of varying sizes. 
 
+#### Raw Example
+
 ```rust
 use libswisseph_sys::*;
 let mut xx: [f64; 6] = [0.0; 6];
