@@ -56,6 +56,7 @@ raw c types wrapped in safe blocks (To avoid having caller write unsafe blocks e
 ## Ephemeris files
 
 Ephemeris files are excluded from this crate so that it fits on crates.io. 
+They will be pulled in automatically via build.rs for this project.
 There are standard standard ephemeris files located in the swisseph c library
 and there are many more that can be included depending on the desired calculation.
 For example: astroids, JPL, etc.
