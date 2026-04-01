@@ -13,21 +13,14 @@ exclude = [
     "libswisseph/doc",
     "libswisseph/windows",
     "libswisseph/contrib",
-    "libswisseph/doc",
     "libswisseph/ephe",
     "libswisseph/test",
 ]
 
-[lib]
-name = "libswisseph_sys"
-path = "lib.rs"
-
-[dependencies]
-libc = "0.2"
-#arrayvec = "0.7.4"
+[features]
+wasi = []
 
 [build-dependencies]
+cc = { version = "1.0.43", features = ["parallel"] }
 pkg-config = "0.3.15"
-cc = { version = "1.0.43", features = ['parallel'] }
-bindgen = "0.65.1"
 
