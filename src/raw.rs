@@ -1,11 +1,11 @@
-include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
+//include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
+pub use crate::bindings::*;
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use std::ffi::CString;
     use std::os::raw::c_char;
-
 
     #[test]
     fn raw_swe_calc_ut_works() {
@@ -27,10 +27,10 @@ mod tests {
             let tjd_ut = swe_julday(y, m, d, h, i_flag);
             let ipl = SE_SUN as i32;
             swe_calc_ut(
-                tjd_ut, 
-                ipl, 
-                SEFLG_SPEED as i32, 
-                xx.as_mut_ptr(), 
+                tjd_ut,
+                ipl,
+                SEFLG_SPEED as i32,
+                xx.as_mut_ptr(),
                 serr.as_mut_ptr(),
             );
 
@@ -60,9 +60,4 @@ mod tests {
             swe_close();
         };
     }
-
 }
-
-
-
-
