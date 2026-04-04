@@ -40,4 +40,3 @@ fn main() {
     // Print ecliptic longitude/latitude/distance.
     println!("rc={rc} lon={} lat={} dist={}", xx[0], xx[1], xx[2]);
 }
-
