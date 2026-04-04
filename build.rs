@@ -110,7 +110,12 @@ fn main() {
 
     cfg.compile("swisseph");
 
-    if !target.contains("msvc") && !target.starts_with("wasm32-unknown-unknown") {
+    // `libm` is not available on WASI targets.
+    if !target.contains("msvc")
+        && !target.starts_with("wasm32-unknown-unknown")
+        && !target.starts_with("wasm32-wasi")
+        && !target.starts_with("wasm32-wasip1")
+    {
         println!("cargo:rustc-link-lib=m");
     }
 
