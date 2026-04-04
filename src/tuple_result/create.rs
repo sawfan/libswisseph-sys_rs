@@ -1,7 +1,7 @@
 use crate::raw;
-use std::ffi::CStr;
 use crate::types::*;
 use crate::util::*;
+use std::ffi::CStr;
 
 // IN THIS SECTION:
 // * Hide C baggage, Use Primitive Rust types in calls
@@ -21,10 +21,10 @@ pub unsafe fn swe_heliacal_ut(
     object_name: &str,
     type_event: i32,
     iflag: i32,
-) -> Result<(i32, [f64;50]), (i32, String)> {
+) -> Result<(i32, [f64; 50]), (i32, String)> {
     let mut object_name_buffer = new_max_buffer_from_str(object_name);
     // result: array of at least 50 doubles, of which 3 are used at the moment
-    let mut dret: [f64;50] = [0.;50];
+    let mut dret: [f64; 50] = [0.; 50];
     let mut serr = new_max_buffer();
     let ret_code = raw::swe_heliacal_ut(
         tjdstart_ut,
@@ -39,8 +39,8 @@ pub unsafe fn swe_heliacal_ut(
     );
 
     if ret_code < RAW_OK {
-        return Err((ret_code, buffer_to_string(serr)))
-    } 
+        return Err((ret_code, buffer_to_string(serr)));
+    }
 
     Ok((ret_code, dret))
 }
@@ -84,11 +84,11 @@ pub unsafe fn swe_heliacal_pheno_ut(
     object_name: &str,
     type_event: i32,
     helflag: i32,
-) -> Result<(i32, [f64;50]), (i32, String)> {
+) -> Result<(i32, [f64; 50]), (i32, String)> {
     let mut serr = new_max_buffer();
     let mut object_name_buffer = new_max_buffer_from_str(object_name);
-    // return array, declare array of 50 doubles 
-    let mut darr: [f64;50] = [0.;50];
+    // return array, declare array of 50 doubles
+    let mut darr: [f64; 50] = [0.; 50];
     let ret_code = raw::swe_heliacal_pheno_ut(
         tjd_ut,
         geopos,
@@ -102,8 +102,8 @@ pub unsafe fn swe_heliacal_pheno_ut(
     );
 
     if ret_code < RAW_OK {
-        return Err((ret_code, buffer_to_string(serr)))
-    } 
+        return Err((ret_code, buffer_to_string(serr)));
+    }
 
     Ok((ret_code, darr))
 }
@@ -124,11 +124,11 @@ pub unsafe fn swe_vis_limit_mag(
     dobs: *mut f64,
     object_name: &str,
     helflag: i32,
-) -> Result<(i32, [f64;8]), (i32, String)> {
+) -> Result<(i32, [f64; 8]), (i32, String)> {
     let mut serr = new_max_buffer();
     let mut object_name_buffer = new_max_buffer_from_str(object_name);
 
-    let mut dret: [f64;8] = [0.;8];
+    let mut dret: [f64; 8] = [0.; 8];
 
     // Function returns:
     //     -1    on error;
@@ -148,7 +148,7 @@ pub unsafe fn swe_vis_limit_mag(
     );
 
     if ret_code < RAW_OK {
-        return Err((ret_code, buffer_to_string(serr)))
+        return Err((ret_code, buffer_to_string(serr)));
     }
 
     Ok((ret_code, dret))
@@ -232,13 +232,7 @@ pub fn swe_get_astro_models(
     sdet: *mut ::std::os::raw::c_char,
     iflag: i32,
 ) {
-    unsafe {
-        raw::swe_get_astro_models(
-            samod,
-            sdet,
-            iflag
-        )
-    }
+    unsafe { raw::swe_get_astro_models(samod, sdet, iflag) }
 }
 
 pub unsafe fn swe_version() -> String {
@@ -253,20 +247,10 @@ pub unsafe fn swe_get_library_path() -> String {
     c_chars_to_string(ret)
 }
 
-pub unsafe fn swe_calc(
-    tjd: f64,
-    ipl: i32,
-    iflag: i32,
-) -> Result<(i32, [f64;6]), (i32, String)> {
+pub unsafe fn swe_calc(tjd: f64, ipl: i32, iflag: i32) -> Result<(i32, [f64; 6]), (i32, String)> {
     let mut serr = new_max_buffer();
-    let mut xx: [f64;6] = [0.;6];
-    let ret_code = raw::swe_calc(
-        tjd,
-        ipl,
-        iflag,
-        xx.as_mut_ptr(),
-        serr.as_mut_ptr(),
-    );
+    let mut xx: [f64; 6] = [0.; 6];
+    let ret_code = raw::swe_calc(tjd, ipl, iflag, xx.as_mut_ptr(), serr.as_mut_ptr());
 
     if ret_code < RAW_OK {
         return Err((ret_code, buffer_to_string(serr)));
@@ -279,19 +263,13 @@ pub unsafe fn swe_calc_ut(
     tjd_ut: f64,
     ipl: i32,
     iflag: i32,
-) -> Result<(i32, [f64;6]), (i32, String)> {
+) -> Result<(i32, [f64; 6]), (i32, String)> {
     let mut serr = new_max_buffer();
-    let mut xx: [f64;6] = [0.;6];
-    let ret_code = raw::swe_calc_ut(
-        tjd_ut,
-        ipl,
-        iflag,
-        xx.as_mut_ptr(),
-        serr.as_mut_ptr(),
-    );
+    let mut xx: [f64; 6] = [0.; 6];
+    let ret_code = raw::swe_calc_ut(tjd_ut, ipl, iflag, xx.as_mut_ptr(), serr.as_mut_ptr());
 
     if ret_code < RAW_OK {
-        return Err((ret_code, buffer_to_string(serr)))
+        return Err((ret_code, buffer_to_string(serr)));
     }
 
     Ok((ret_code, xx))
@@ -463,7 +441,7 @@ pub unsafe fn swe_calc_ut(
 //    }
 //}
 //
-//// Return value < 0 indicates an error, with error details in string serr 
+//// Return value < 0 indicates an error, with error details in string serr
 //// (unless serr is a NULL pointer).
 //// The crossing time is returned via parameter jx.
 //pub fn swe_helio_cross(
@@ -687,7 +665,7 @@ pub unsafe fn swe_close() {
 //pub fn swe_set_ephe_path(path: *const ::std::os::raw::c_char) {
 pub unsafe fn swe_set_ephe_path(path: &str) {
     let mut path_buffer = new_max_buffer_from_str(path);
-    raw::swe_set_ephe_path(path_buffer.as_mut_ptr()) 
+    raw::swe_set_ephe_path(path_buffer.as_mut_ptr())
 }
 //
 ////pub fn swe_set_jpl_file(fname: *const ::std::os::raw::c_char) {
@@ -811,17 +789,10 @@ pub unsafe fn swe_date_conversion(
     c: ::std::os::raw::c_char,
 ) -> Result<(i32, f64), (i32, f64)> {
     let mut tjd: f64 = 0.;
-    let ret_code = raw::swe_date_conversion(
-        y,
-        m,
-        d,
-        utime,
-        c,
-        &mut tjd,
-    );
+    let ret_code = raw::swe_date_conversion(y, m, d, utime, c, &mut tjd);
 
     if ret_code < RAW_OK {
-        return Err((ret_code, tjd))
+        return Err((ret_code, tjd));
     }
 
     Ok((ret_code, tjd))
@@ -840,14 +811,7 @@ pub unsafe fn swe_revjul(
     let mut jday: i32 = 0;
     let mut jut: f64 = 0.;
 
-    raw::swe_revjul(
-        jd,
-        gregflag,
-        &mut jyear,
-        &mut jmon,
-        &mut jday,
-        &mut jut,
-    );
+    raw::swe_revjul(jd, gregflag, &mut jyear, &mut jmon, &mut jday, &mut jut);
 
     (jyear, jmon, jday, jut)
 }
@@ -862,8 +826,8 @@ pub unsafe fn swe_utc_to_jd(
     gregflag: i32,
     //    dret: *mut f64,
     //    serr: *mut ::std::os::raw::c_char,
-) -> Result<(i32, [f64;2]), (i32, String)> {
-    let mut dret: [f64; 2] = [0.;2];
+) -> Result<(i32, [f64; 2]), (i32, String)> {
+    let mut dret: [f64; 2] = [0.; 2];
     let mut serr = new_max_buffer();
 
     let ret_code = raw::swe_utc_to_jd(
@@ -973,9 +937,15 @@ pub unsafe fn swe_houses(
     geolat: f64,
     geolon: f64,
     hsys: i32,
-//    cusps: *mut f64,
-//    ascmc: *mut f64,
-) -> Result<(Option<(i32, [f64; 13], [f64;10])>, Option<(i32, [f64; 37], [f64;10])>), i32> {
+    //    cusps: *mut f64,
+    //    ascmc: *mut f64,
+) -> Result<
+    (
+        Option<(i32, [f64; 13], [f64; 10])>,
+        Option<(i32, [f64; 37], [f64; 10])>,
+    ),
+    i32,
+> {
     let mut ascmc: [f64; 10] = [0.; 10];
     if hsys != 'G' as i32 {
         let mut cusps: [f64; 13] = [0.; 13];
@@ -1108,7 +1078,7 @@ pub unsafe fn swe_house_pos(
     eps: f64,
     hsys: i32,
     //xpin: *mut f64,
-    mut xpin: [f64;2],
+    mut xpin: [f64; 2],
 ) -> f64 {
     let mut serr = new_max_buffer();
     raw::swe_house_pos(
@@ -1686,11 +1656,11 @@ pub unsafe fn swe_house_name(hsys: i32) -> String {
 pub unsafe fn swe_split_deg(
     ddeg: f64,
     roundflag: i32,
-//    ideg: *mut i32,
-//    imin: *mut i32,
-//    isec: *mut i32,
-//    dsecfr: *mut f64,
-//    isgn: *mut i32,
+    //    ideg: *mut i32,
+    //    imin: *mut i32,
+    //    isec: *mut i32,
+    //    dsecfr: *mut f64,
+    //    isgn: *mut i32,
 ) -> (i32, i32, i32, f64, i32) {
     let mut ideg: i32 = 0;
     let mut imin: i32 = 0;
@@ -1698,15 +1668,15 @@ pub unsafe fn swe_split_deg(
     let mut dsecfr: f64 = 0.;
     let mut isgn: i32 = 0;
 
-        raw::swe_split_deg(
-            ddeg,
-            roundflag,
-            &mut ideg,
-            &mut imin,
-            &mut isec,
-            &mut dsecfr,
-            &mut isgn,
-        );
+    raw::swe_split_deg(
+        ddeg,
+        roundflag,
+        &mut ideg,
+        &mut imin,
+        &mut isec,
+        &mut dsecfr,
+        &mut isgn,
+    );
 
     (ideg, imin, isec, dsecfr, isgn)
 }

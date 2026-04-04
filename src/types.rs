@@ -11,8 +11,6 @@ pub type MaxBuffer = [i8; MAXCH];
 
 //pub type MaxBuffer2 = [u8; MAXCH];
 
-
-
 //pub type BufferType = [i8; MAXCH];
 
 //pub type CalcPrimRet = [f64; 6];

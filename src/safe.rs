@@ -30,7 +30,7 @@ pub fn swe_heliacal_ut(
             TypeEvent,
             iflag,
             dret,
-            serr ,
+            serr,
         )
     }
 }
@@ -48,15 +48,7 @@ pub fn swe_heliacal_pheno_ut(
 ) -> i32 {
     unsafe {
         raw::swe_heliacal_pheno_ut(
-            tjd_ut,
-            geopos,
-            datm,
-            dobs,
-            ObjectName,
-            TypeEvent,
-            helflag,
-            darr,
-            serr,
+            tjd_ut, geopos, datm, dobs, ObjectName, TypeEvent, helflag, darr, serr,
         )
     }
 }
@@ -71,18 +63,7 @@ pub fn swe_vis_limit_mag(
     dret: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_vis_limit_mag(
-            tjdut,
-            geopos,
-            datm,
-            dobs,
-            ObjectName,
-            helflag,
-            dret,
-            serr,
-        )
-    }
+    unsafe { raw::swe_vis_limit_mag(tjdut, geopos, datm, dobs, ObjectName, helflag, dret, serr) }
 }
 
 pub fn swe_heliacal_angle(
@@ -101,18 +82,7 @@ pub fn swe_heliacal_angle(
 ) -> i32 {
     unsafe {
         raw::swe_heliacal_angle(
-            tjdut,
-            dgeo,
-            datm,
-            dobs,
-            helflag,
-            mag,
-            azi_obj,
-            azi_sun,
-            azi_moon,
-            alt_moon,
-            dret,
-            serr,
+            tjdut, dgeo, datm, dobs, helflag, mag, azi_obj, azi_sun, azi_moon, alt_moon, dret, serr,
         )
     }
 }
@@ -134,27 +104,14 @@ pub fn swe_topo_arcus_visionis(
 ) -> i32 {
     unsafe {
         raw::swe_topo_arcus_visionis(
-            tjdut,
-            dgeo,
-            datm,
-            dobs,
-            helflag,
-            mag,
-            azi_obj,
-            alt_obj,
-            azi_sun,
-            azi_moon,
-            alt_moon,
-            dret,
-            serr,
+            tjdut, dgeo, datm, dobs, helflag, mag, azi_obj, alt_obj, azi_sun, azi_moon, alt_moon,
+            dret, serr,
         )
     }
 }
 
 pub fn swe_set_astro_models(samod: *mut ::std::os::raw::c_char, iflag: i32) {
-    unsafe {
-        raw::swe_set_astro_models(samod, iflag)
-    }
+    unsafe { raw::swe_set_astro_models(samod, iflag) }
 }
 
 pub fn swe_get_astro_models(
@@ -162,27 +119,15 @@ pub fn swe_get_astro_models(
     sdet: *mut ::std::os::raw::c_char,
     iflag: i32,
 ) {
-    unsafe {
-        raw::swe_get_astro_models(
-            samod,
-            sdet,
-            iflag
-        )
-    }
+    unsafe { raw::swe_get_astro_models(samod, sdet, iflag) }
 }
 
 pub fn swe_version(arg1: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char {
-    unsafe {
-        raw::swe_version(arg1)
-    }
+    unsafe { raw::swe_version(arg1) }
 }
 
-pub fn swe_get_library_path(
-    arg1: *mut ::std::os::raw::c_char
-) -> *mut ::std::os::raw::c_char {
-    unsafe {
-        raw::swe_get_library_path(arg1)
-    }
+pub fn swe_get_library_path(arg1: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char {
+    unsafe { raw::swe_get_library_path(arg1) }
 }
 
 pub fn swe_calc(
@@ -192,15 +137,7 @@ pub fn swe_calc(
     xx: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_calc(
-            tjd,
-            ipl,
-            iflag,
-            xx,
-            serr,
-        )
-    }
+    unsafe { raw::swe_calc(tjd, ipl, iflag, xx, serr) }
 }
 
 pub fn swe_calc_ut(
@@ -210,15 +147,7 @@ pub fn swe_calc_ut(
     xx: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_calc_ut(
-            tjd_ut,
-            ipl,
-            iflag,
-            xx,
-            serr
-        )
-    }
+    unsafe { raw::swe_calc_ut(tjd_ut, ipl, iflag, xx, serr) }
 }
 
 pub fn swe_calc_pctr(
@@ -229,32 +158,11 @@ pub fn swe_calc_pctr(
     xxret: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_calc_pctr(
-            tjd,
-            ipl,
-            iplctr,
-            iflag,
-            xxret,
-            serr,
-        )
-    }
+    unsafe { raw::swe_calc_pctr(tjd, ipl, iplctr, iflag, xxret, serr) }
 }
 
-pub fn swe_solcross(
-    x2cross: f64,
-    jd_et: f64,
-    flag: i32,
-    serr: *mut ::std::os::raw::c_char,
-) -> f64 {
-    unsafe {
-        raw::swe_solcross(
-            x2cross,
-            jd_et,
-            flag,
-            serr
-        )
-    }
+pub fn swe_solcross(x2cross: f64, jd_et: f64, flag: i32, serr: *mut ::std::os::raw::c_char) -> f64 {
+    unsafe { raw::swe_solcross(x2cross, jd_et, flag, serr) }
 }
 
 pub fn swe_solcross_ut(
@@ -263,14 +171,7 @@ pub fn swe_solcross_ut(
     flag: i32,
     serr: *mut ::std::os::raw::c_char,
 ) -> f64 {
-    unsafe {
-        raw::swe_solcross_ut(
-            x2cross,
-            jd_ut,
-            flag,
-            serr,
-        )
-    }
+    unsafe { raw::swe_solcross_ut(x2cross, jd_ut, flag, serr) }
 }
 
 pub fn swe_mooncross(
@@ -279,14 +180,7 @@ pub fn swe_mooncross(
     flag: i32,
     serr: *mut ::std::os::raw::c_char,
 ) -> f64 {
-    unsafe {
-        raw::swe_mooncross(
-            x2cross,
-            jd_et,
-            flag,
-            serr,
-        )
-    }
+    unsafe { raw::swe_mooncross(x2cross, jd_et, flag, serr) }
 }
 
 pub fn swe_mooncross_ut(
@@ -295,14 +189,7 @@ pub fn swe_mooncross_ut(
     flag: i32,
     serr: *mut ::std::os::raw::c_char,
 ) -> f64 {
-    unsafe {
-        raw::swe_mooncross_ut(
-            x2cross,
-            jd_ut,
-            flag,
-            serr,
-        )
-    }
+    unsafe { raw::swe_mooncross_ut(x2cross, jd_ut, flag, serr) }
 }
 
 pub fn swe_mooncross_node(
@@ -312,15 +199,7 @@ pub fn swe_mooncross_node(
     xlat: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> f64 {
-    unsafe {
-        raw::swe_mooncross_node(
-            jd_et,
-            flag,
-            xlon,
-            xlat,
-            serr,
-        )
-    }
+    unsafe { raw::swe_mooncross_node(jd_et, flag, xlon, xlat, serr) }
 }
 
 pub fn swe_mooncross_node_ut(
@@ -330,15 +209,7 @@ pub fn swe_mooncross_node_ut(
     xlat: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> f64 {
-    unsafe {
-        raw::swe_mooncross_node_ut(
-            jd_ut,
-            flag,
-            xlon,
-            xlat,
-            serr,
-        )
-    }
+    unsafe { raw::swe_mooncross_node_ut(jd_ut, flag, xlon, xlat, serr) }
 }
 
 pub fn swe_helio_cross(
@@ -350,17 +221,7 @@ pub fn swe_helio_cross(
     jd_cross: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_helio_cross(
-            ipl,
-            x2cross,
-            jd_et,
-            iflag,
-            dir,
-            jd_cross,
-            serr,
-        )
-    }
+    unsafe { raw::swe_helio_cross(ipl, x2cross, jd_et, iflag, dir, jd_cross, serr) }
 }
 
 pub fn swe_helio_cross_ut(
@@ -372,18 +233,7 @@ pub fn swe_helio_cross_ut(
     jd_cross: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_helio_cross_ut(
-            ipl,
-            x2cross,
-            jd_ut,
-            iflag,
-            dir,
-            jd_cross,
-            serr,
-
-        )
-    }
+    unsafe { raw::swe_helio_cross_ut(ipl, x2cross, jd_ut, iflag, dir, jd_cross, serr) }
 }
 
 pub fn swe_fixstar(
@@ -393,15 +243,7 @@ pub fn swe_fixstar(
     xx: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_fixstar(
-            star,
-            tjd,
-            iflag,
-            xx,
-            serr,
-        )
-    }
+    unsafe { raw::swe_fixstar(star, tjd, iflag, xx, serr) }
 }
 
 pub fn swe_fixstar_ut(
@@ -411,15 +253,7 @@ pub fn swe_fixstar_ut(
     xx: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_fixstar_ut(
-            star,
-            tjd_ut,
-            iflag,
-            xx,
-            serr,
-        )
-    }
+    unsafe { raw::swe_fixstar_ut(star, tjd_ut, iflag, xx, serr) }
 }
 
 pub fn swe_fixstar_mag(
@@ -427,13 +261,7 @@ pub fn swe_fixstar_mag(
     mag: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_fixstar_mag(
-            star,
-            mag,
-            serr,
-        )
-    }
+    unsafe { raw::swe_fixstar_mag(star, mag, serr) }
 }
 
 pub fn swe_fixstar2(
@@ -443,15 +271,7 @@ pub fn swe_fixstar2(
     xx: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_fixstar2(
-            star,
-            tjd,
-            iflag,
-            xx,
-            serr,
-        )
-    }
+    unsafe { raw::swe_fixstar2(star, tjd, iflag, xx, serr) }
 }
 
 pub fn swe_fixstar2_ut(
@@ -461,15 +281,7 @@ pub fn swe_fixstar2_ut(
     xx: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_fixstar2_ut(
-            star,
-            tjd_ut,
-            iflag,
-            xx,
-            serr,
-        )
-    }
+    unsafe { raw::swe_fixstar2_ut(star, tjd_ut, iflag, xx, serr) }
 }
 
 pub fn swe_fixstar2_mag(
@@ -477,43 +289,27 @@ pub fn swe_fixstar2_mag(
     mag: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_fixstar2_mag(
-            star,
-            mag,
-            serr,
-        )
-    }
+    unsafe { raw::swe_fixstar2_mag(star, mag, serr) }
 }
 
-
 pub fn swe_close() {
-    unsafe {
-        raw::swe_close()
-    }
+    unsafe { raw::swe_close() }
 }
 
 pub fn swe_set_ephe_path(path: *const ::std::os::raw::c_char) {
-    unsafe {
-        raw::swe_set_ephe_path(path) 
-    }
+    unsafe { raw::swe_set_ephe_path(path) }
 }
 
-
 //    pub fn swe_set_jpl_file(fname: *const ::std::os::raw::c_char);
-
 
 //    pub fn swe_get_planet_name(
 //        ipl: ::std::os::raw::c_int,
 //        spname: *mut ::std::os::raw::c_char,
 //    ) -> *mut ::std::os::raw::c_char;
 
-
 //    pub fn swe_set_topo(geolon: f64, geolat: f64, geoalt: f64);
 
-
 //    pub fn swe_set_sid_mode(sid_mode: i32, t0: f64, ayan_t0: f64);
-
 
 //    pub fn swe_get_ayanamsa_ex(
 //        tjd_et: f64,
@@ -522,7 +318,6 @@ pub fn swe_set_ephe_path(path: *const ::std::os::raw::c_char) {
 //        serr: *mut ::std::os::raw::c_char,
 //    ) -> i32;
 
-
 //    pub fn swe_get_ayanamsa_ex_ut(
 //        tjd_ut: f64,
 //        iflag: i32,
@@ -530,15 +325,12 @@ pub fn swe_set_ephe_path(path: *const ::std::os::raw::c_char) {
 //        serr: *mut ::std::os::raw::c_char,
 //    ) -> i32;
 
-
 //    pub fn swe_get_ayanamsa(tjd_et: f64) -> f64;
 //}
 
 //    pub fn swe_get_ayanamsa_ut(tjd_ut: f64) -> f64;
 
-
 //    pub fn swe_get_ayanamsa_name(isidmode: i32) -> *const ::std::os::raw::c_char;
-
 
 pub fn swe_get_current_file_data(
     ifno: ::std::os::raw::c_int,
@@ -546,14 +338,7 @@ pub fn swe_get_current_file_data(
     tfend: *mut f64,
     denum: *mut ::std::os::raw::c_int,
 ) -> *const ::std::os::raw::c_char {
-    unsafe {
-        raw::swe_get_current_file_data(
-            ifno,
-            tfstart,
-            tfend,
-            denum,
-        )
-    }
+    unsafe { raw::swe_get_current_file_data(ifno, tfstart, tfend, denum) }
 }
 
 pub fn swe_date_conversion(
@@ -564,34 +349,11 @@ pub fn swe_date_conversion(
     c: ::std::os::raw::c_char,
     tjd: *mut f64,
 ) -> i32 {
-    unsafe {
-        raw::swe_date_conversion(
-            y,
-            m,
-            d,
-            utime,
-            c,
-            tjd,
-        )
-    }
+    unsafe { raw::swe_date_conversion(y, m, d, utime, c, tjd) }
 }
 
-pub fn swe_julday(
-    year: i32,
-    month: i32,
-    day: i32,
-    hour: f64,
-    gregflag: i32,
-) -> f64 {
-    unsafe {
-        raw::swe_julday(
-            year,
-            month,
-            day,
-            hour,
-            gregflag,
-        )
-    }
+pub fn swe_julday(year: i32, month: i32, day: i32, hour: f64, gregflag: i32) -> f64 {
+    unsafe { raw::swe_julday(year, month, day, hour, gregflag) }
 }
 
 pub fn swe_revjul(
@@ -602,16 +364,7 @@ pub fn swe_revjul(
     jday: *mut i32,
     jut: *mut f64,
 ) {
-    unsafe {
-        raw::swe_revjul(
-            jd,
-            gregflag,
-            jyear,
-            jmon,
-            jday,
-            jut,
-        )
-    }
+    unsafe { raw::swe_revjul(jd, gregflag, jyear, jmon, jday, jut) }
 }
 
 pub fn swe_utc_to_jd(
@@ -625,19 +378,7 @@ pub fn swe_utc_to_jd(
     dret: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_utc_to_jd(
-            iyear,
-            imonth,
-            iday,
-            ihour,
-            imin,
-            dsec,
-            gregflag,
-            dret,
-            serr,
-        )
-    }
+    unsafe { raw::swe_utc_to_jd(iyear, imonth, iday, ihour, imin, dsec, gregflag, dret, serr) }
 }
 
 pub fn swe_jdet_to_utc(
@@ -650,18 +391,7 @@ pub fn swe_jdet_to_utc(
     imin: *mut i32,
     dsec: *mut f64,
 ) {
-    unsafe {
-        raw::swe_jdet_to_utc(
-            tjd_et,
-            gregflag,
-            iyear,
-            imonth,
-            iday,
-            ihour,
-            imin,
-            dsec,
-        )
-    }
+    unsafe { raw::swe_jdet_to_utc(tjd_et, gregflag, iyear, imonth, iday, ihour, imin, dsec) }
 }
 
 pub fn swe_jdut1_to_utc(
@@ -674,18 +404,7 @@ pub fn swe_jdut1_to_utc(
     imin: *mut i32,
     dsec: *mut f64,
 ) {
-    unsafe {
-        raw::swe_jdut1_to_utc(
-            tjd_ut,
-            gregflag,
-            iyear,
-            imonth,
-            iday,
-            ihour,
-            imin,
-            dsec,
-        )
-    }
+    unsafe { raw::swe_jdut1_to_utc(tjd_ut, gregflag, iyear, imonth, iday, ihour, imin, dsec) }
 }
 
 pub fn swe_utc_time_zone(
@@ -705,19 +424,8 @@ pub fn swe_utc_time_zone(
 ) {
     unsafe {
         raw::swe_utc_time_zone(
-            iyear,
-            imonth,
-            iday,
-            ihour,
-            imin,
-            dsec,
-            d_timezone,
-            iyear_out,
-            imonth_out,
-            iday_out,
-            ihour_out,
-            imin_out,
-            dsec_out,
+            iyear, imonth, iday, ihour, imin, dsec, d_timezone, iyear_out, imonth_out, iday_out,
+            ihour_out, imin_out, dsec_out,
         )
     }
 }
@@ -730,16 +438,7 @@ pub fn swe_houses(
     cusps: *mut f64,
     ascmc: *mut f64,
 ) -> ::std::os::raw::c_int {
-    unsafe {
-        raw::swe_houses(
-            tjd_ut,
-            geolat,
-            geolon,
-            hsys,
-            cusps,
-            ascmc,
-        )
-    }
+    unsafe { raw::swe_houses(tjd_ut, geolat, geolon, hsys, cusps, ascmc) }
 }
 
 pub fn swe_houses_ex(
@@ -751,17 +450,7 @@ pub fn swe_houses_ex(
     cusps: *mut f64,
     ascmc: *mut f64,
 ) -> i32 {
-    unsafe {
-        raw::swe_houses_ex(
-            tjd_ut,
-            iflag,
-            geolat,
-            geolon,
-            hsys,
-            cusps,
-            ascmc,
-        )
-    }
+    unsafe { raw::swe_houses_ex(tjd_ut, iflag, geolat, geolon, hsys, cusps, ascmc) }
 }
 
 pub fn swe_houses_ex2(
@@ -800,16 +489,7 @@ pub fn swe_houses_armc(
     cusps: *mut f64,
     ascmc: *mut f64,
 ) -> i32 {
-    unsafe {
-        raw::swe_houses_armc(
-            armc,
-            geolat,
-            eps,
-            hsys,
-            cusps,
-            ascmc,
-        )
-    }
+    unsafe { raw::swe_houses_armc(armc, geolat, eps, hsys, cusps, ascmc) }
 }
 
 //return ::std::os::raw::c_int
@@ -847,16 +527,7 @@ pub fn swe_house_pos(
     xpin: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> f64 {
-    unsafe {
-        raw::swe_house_pos(
-            armc,
-            geolat,
-            eps,
-            hsys,
-            xpin,
-            serr
-        )
-    }
+    unsafe { raw::swe_house_pos(armc, geolat, eps, hsys, xpin, serr) }
 }
 
 pub fn swe_house_name(hsys: i32) -> String {
@@ -880,16 +551,7 @@ pub fn swe_gauquelin_sector(
 ) -> i32 {
     unsafe {
         raw::swe_gauquelin_sector(
-            t_ut,
-            ipl,
-            starname,
-            iflag,
-            imeth,
-            geopos,
-            atpress,
-            attemp,
-            dgsect,
-            serr,
+            t_ut, ipl, starname, iflag, imeth, geopos, atpress, attemp, dgsect, serr,
         )
     }
 }
@@ -901,15 +563,7 @@ pub fn swe_sol_eclipse_where(
     attr: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_sol_eclipse_where(
-            tjd,
-            ifl,
-            geopos,
-            attr,
-            serr,
-        )
-    }
+    unsafe { raw::swe_sol_eclipse_where(tjd, ifl, geopos, attr, serr) }
 }
 
 pub fn swe_lun_occult_where(
@@ -921,17 +575,7 @@ pub fn swe_lun_occult_where(
     attr: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_lun_occult_where(
-            tjd,
-            ipl,
-            starname,
-            ifl,
-            geopos,
-            attr,
-            serr,
-        )
-    }
+    unsafe { raw::swe_lun_occult_where(tjd, ipl, starname, ifl, geopos, attr, serr) }
 }
 
 pub fn swe_sol_eclipse_how(
@@ -941,15 +585,7 @@ pub fn swe_sol_eclipse_how(
     attr: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_sol_eclipse_how(
-            tjd,
-            ifl,
-            geopos,
-            attr,
-            serr,
-        )
-    }
+    unsafe { raw::swe_sol_eclipse_how(tjd, ifl, geopos, attr, serr) }
 }
 
 pub fn swe_sol_eclipse_when_loc(
@@ -961,17 +597,7 @@ pub fn swe_sol_eclipse_when_loc(
     backward: i32,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_sol_eclipse_when_loc(
-            tjd_start,
-            ifl,
-            geopos,
-            tret,
-            attr,
-            backward,
-            serr,
-        )
-    }
+    unsafe { raw::swe_sol_eclipse_when_loc(tjd_start, ifl, geopos, tret, attr, backward, serr) }
 }
 
 pub fn swe_lun_occult_when_loc(
@@ -987,15 +613,7 @@ pub fn swe_lun_occult_when_loc(
 ) -> i32 {
     unsafe {
         raw::swe_lun_occult_when_loc(
-            tjd_start,
-            ipl,
-            starname,
-            ifl,
-            geopos,
-            tret,
-            attr,
-            backward,
-            serr,
+            tjd_start, ipl, starname, ifl, geopos, tret, attr, backward, serr,
         )
     }
 }
@@ -1008,16 +626,7 @@ pub fn swe_sol_eclipse_when_glob(
     backward: i32,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_sol_eclipse_when_glob(
-            tjd_start,
-            ifl,
-            ifltype,
-            tret,
-            backward,
-            serr,
-        )
-    }
+    unsafe { raw::swe_sol_eclipse_when_glob(tjd_start, ifl, ifltype, tret, backward, serr) }
 }
 
 pub fn swe_lun_occult_when_glob(
@@ -1031,16 +640,7 @@ pub fn swe_lun_occult_when_glob(
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
     unsafe {
-        raw::swe_lun_occult_when_glob(
-            tjd_start,
-            ipl,
-            starname,
-            ifl,
-            ifltype,
-            tret,
-            backward,
-            serr,
-        )
+        raw::swe_lun_occult_when_glob(tjd_start, ipl, starname, ifl, ifltype, tret, backward, serr)
     }
 }
 
@@ -1051,15 +651,7 @@ pub fn swe_lun_eclipse_how(
     attr: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_lun_eclipse_how(
-            tjd_ut,
-            ifl,
-            geopos,
-            attr,
-            serr,
-        )
-    }
+    unsafe { raw::swe_lun_eclipse_how(tjd_ut, ifl, geopos, attr, serr) }
 }
 
 pub fn swe_lun_eclipse_when(
@@ -1070,16 +662,7 @@ pub fn swe_lun_eclipse_when(
     backward: i32,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_lun_eclipse_when(
-            tjd_start,
-            ifl,
-            ifltype,
-            tret,
-            backward,
-            serr,
-        )
-    }
+    unsafe { raw::swe_lun_eclipse_when(tjd_start, ifl, ifltype, tret, backward, serr) }
 }
 
 pub fn swe_lun_eclipse_when_loc(
@@ -1091,17 +674,7 @@ pub fn swe_lun_eclipse_when_loc(
     backward: i32,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_lun_eclipse_when_loc(
-            tjd_start,
-            ifl,
-            geopos,
-            tret,
-            attr,
-            backward,
-            serr,
-        )
-    }
+    unsafe { raw::swe_lun_eclipse_when_loc(tjd_start, ifl, geopos, tret, attr, backward, serr) }
 }
 
 pub fn swe_pheno(
@@ -1111,15 +684,7 @@ pub fn swe_pheno(
     attr: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_pheno(
-            tjd,
-            ipl,
-            iflag,
-            attr,
-            serr,
-        )
-    }
+    unsafe { raw::swe_pheno(tjd, ipl, iflag, attr, serr) }
 }
 
 pub fn swe_pheno_ut(
@@ -1129,21 +694,11 @@ pub fn swe_pheno_ut(
     attr: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_pheno_ut(
-            tjd_ut,
-            ipl,
-            iflag,
-            attr,
-            serr,
-        )
-    }
+    unsafe { raw::swe_pheno_ut(tjd_ut, ipl, iflag, attr, serr) }
 }
 
 pub fn swe_refrac(inalt: f64, atpress: f64, attemp: f64, calc_flag: i32) -> f64 {
-    unsafe {
-        raw::swe_refrac(inalt, atpress, attemp, calc_flag)
-    }
+    unsafe { raw::swe_refrac(inalt, atpress, attemp, calc_flag) }
 }
 
 pub fn swe_refrac_extended(
@@ -1155,24 +710,11 @@ pub fn swe_refrac_extended(
     calc_flag: i32,
     dret: *mut f64,
 ) -> f64 {
-    unsafe {
-        raw::swe_refrac_extended(
-            inalt,
-            geoalt,
-            atpress,
-            attemp,
-            lapse_rate,
-            calc_flag,
-            dret,
-        )
-    }
-
+    unsafe { raw::swe_refrac_extended(inalt, geoalt, atpress, attemp, lapse_rate, calc_flag, dret) }
 }
 
 pub fn swe_set_lapse_rate(lapse_rate: f64) {
-    unsafe {
-        raw::swe_set_lapse_rate(lapse_rate)
-    }
+    unsafe { raw::swe_set_lapse_rate(lapse_rate) }
 }
 
 pub fn swe_azalt(
@@ -1184,35 +726,11 @@ pub fn swe_azalt(
     xin: *mut f64,
     xaz: *mut f64,
 ) {
-    unsafe {
-        raw::swe_azalt(
-            tjd_ut,
-            calc_flag,
-            geopos,
-            atpress,
-            attemp,
-            xin,
-            xaz,
-        )
-    }
+    unsafe { raw::swe_azalt(tjd_ut, calc_flag, geopos, atpress, attemp, xin, xaz) }
 }
 
-pub fn swe_azalt_rev(
-    tjd_ut: f64,
-    calc_flag: i32,
-    geopos: *mut f64,
-    xin: *mut f64,
-    xout: *mut f64,
-) {
-    unsafe {
-        raw::swe_azalt_rev(
-            tjd_ut,
-            calc_flag,
-            geopos,
-            xin,
-            xout,
-        )
-    }
+pub fn swe_azalt_rev(tjd_ut: f64, calc_flag: i32, geopos: *mut f64, xin: *mut f64, xout: *mut f64) {
+    unsafe { raw::swe_azalt_rev(tjd_ut, calc_flag, geopos, xin, xout) }
 }
 
 pub fn swe_rise_trans_true_hor(
@@ -1230,17 +748,7 @@ pub fn swe_rise_trans_true_hor(
 ) -> i32 {
     unsafe {
         raw::swe_rise_trans_true_hor(
-            tjd_ut,
-            ipl,
-            starname,
-            epheflag,
-            rsmi,
-            geopos,
-            atpress,
-            attemp,
-            horhgt,
-            tret,
-            serr,
+            tjd_ut, ipl, starname, epheflag, rsmi, geopos, atpress, attemp, horhgt, tret, serr,
         )
     }
 }
@@ -1259,16 +767,7 @@ pub fn swe_rise_trans(
 ) -> i32 {
     unsafe {
         raw::swe_rise_trans(
-            tjd_ut,
-            ipl,
-            starname,
-            epheflag,
-            rsmi,
-            geopos,
-            atpress,
-            attemp,
-            tret,
-            serr,
+            tjd_ut, ipl, starname, epheflag, rsmi, geopos, atpress, attemp, tret, serr,
         )
     }
 }
@@ -1284,19 +783,7 @@ pub fn swe_nod_aps(
     xaphe: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_nod_aps(
-            tjd_et,
-            ipl,
-            iflag,
-            method,
-            xnasc,
-            xndsc,
-            xperi,
-            xaphe,
-            serr,
-        )
-    }
+    unsafe { raw::swe_nod_aps(tjd_et, ipl, iflag, method, xnasc, xndsc, xperi, xaphe, serr) }
 }
 
 pub fn swe_nod_aps_ut(
@@ -1310,19 +797,7 @@ pub fn swe_nod_aps_ut(
     xaphe: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_nod_aps_ut(
-            tjd_ut,
-            ipl,
-            iflag,
-            method,
-            xnasc,
-            xndsc,
-            xperi,
-            xaphe,
-            serr,
-        )
-    }
+    unsafe { raw::swe_nod_aps_ut(tjd_ut, ipl, iflag, method, xnasc, xndsc, xperi, xaphe, serr) }
 }
 
 pub fn swe_get_orbital_elements(
@@ -1332,14 +807,7 @@ pub fn swe_get_orbital_elements(
     dret: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_get_orbital_elements(
-            tjd_et,
-            ipl,
-            iflag,
-            dret,
-            serr)
-    }
+    unsafe { raw::swe_get_orbital_elements(tjd_et, ipl, iflag, dret, serr) }
 }
 
 pub fn swe_orbit_max_min_true_distance(
@@ -1351,34 +819,19 @@ pub fn swe_orbit_max_min_true_distance(
     dtrue: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_orbit_max_min_true_distance(
-            tjd_et,
-            ipl,
-            iflag,
-            dmax,
-            dmin,
-            dtrue,
-            serr)
-    }
+    unsafe { raw::swe_orbit_max_min_true_distance(tjd_et, ipl, iflag, dmax, dmin, dtrue, serr) }
 }
 
 pub fn swe_deltat(tjd: f64) -> f64 {
-    unsafe {
-        raw::swe_deltat(tjd)
-    }
+    unsafe { raw::swe_deltat(tjd) }
 }
 
 pub fn swe_deltat_ex(tjd: f64, iflag: i32, serr: *mut ::std::os::raw::c_char) -> f64 {
-    unsafe {
-        raw::swe_deltat_ex(tjd, iflag, serr)
-    }
+    unsafe { raw::swe_deltat_ex(tjd, iflag, serr) }
 }
 
 pub fn swe_time_equ(tjd: f64, te: *mut f64, serr: *mut ::std::os::raw::c_char) -> i32 {
-    unsafe {
-        raw::swe_time_equ(tjd, te, serr)
-    }
+    unsafe { raw::swe_time_equ(tjd, te, serr) }
 }
 
 pub fn swe_lmt_to_lat(
@@ -1387,15 +840,7 @@ pub fn swe_lmt_to_lat(
     tjd_lat: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-
-    unsafe {
-        raw::swe_lmt_to_lat(
-            tjd_lmt,
-            geolon,
-            tjd_lat,
-            serr,
-        )
-    }
+    unsafe { raw::swe_lmt_to_lat(tjd_lmt, geolon, tjd_lat, serr) }
 }
 
 pub fn swe_lat_to_lmt(
@@ -1404,26 +849,15 @@ pub fn swe_lat_to_lmt(
     tjd_lmt: *mut f64,
     serr: *mut ::std::os::raw::c_char,
 ) -> i32 {
-    unsafe {
-        raw::swe_lat_to_lmt(
-            tjd_lat,
-            geolon,
-            tjd_lmt,
-            serr,
-        )
-    }
+    unsafe { raw::swe_lat_to_lmt(tjd_lat, geolon, tjd_lmt, serr) }
 }
 
 pub fn swe_sidtime0(tjd_ut: f64, eps: f64, nut: f64) -> f64 {
-    unsafe {
-        raw::swe_sidtime0(tjd_ut, eps, nut)
-    }
+    unsafe { raw::swe_sidtime0(tjd_ut, eps, nut) }
 }
 
 pub fn swe_sidtime(tjd_ut: f64) -> f64 {
-    unsafe {
-        raw::swe_sidtime(tjd_ut)
-    }
+    unsafe { raw::swe_sidtime(tjd_ut) }
 }
 
 pub fn swe_set_interpolate_nut(do_interpolate: bool) {
@@ -1434,57 +868,39 @@ pub fn swe_set_interpolate_nut(do_interpolate: bool) {
 }
 
 pub fn swe_cotrans(xpo: *mut f64, xpn: *mut f64, eps: f64) {
-    unsafe {
-        raw::swe_cotrans(xpo, xpn, eps)
-    }
+    unsafe { raw::swe_cotrans(xpo, xpn, eps) }
 }
 
 pub fn swe_cotrans_sp(xpo: *mut f64, xpn: *mut f64, eps: f64) {
-    unsafe {
-        raw::swe_cotrans_sp(xpo, xpn, eps)
-    }
+    unsafe { raw::swe_cotrans_sp(xpo, xpn, eps) }
 }
 
 pub fn swe_get_tid_acc() -> f64 {
-    unsafe {
-        raw::swe_get_tid_acc()
-    }
+    unsafe { raw::swe_get_tid_acc() }
 }
 
 pub fn swe_set_tid_acc(t_acc: f64) {
-    unsafe {
-        raw::swe_set_tid_acc(t_acc) 
-    }
+    unsafe { raw::swe_set_tid_acc(t_acc) }
 }
 
 pub fn swe_set_delta_t_userdef(dt: f64) {
-    unsafe {
-        raw::swe_set_delta_t_userdef(dt)
-    }
+    unsafe { raw::swe_set_delta_t_userdef(dt) }
 }
 
 pub fn swe_degnorm(x: f64) -> f64 {
-    unsafe {
-        raw::swe_degnorm(x)
-    }
+    unsafe { raw::swe_degnorm(x) }
 }
 
 pub fn swe_radnorm(x: f64) -> f64 {
-    unsafe {
-        raw::swe_radnorm(x)
-    }
+    unsafe { raw::swe_radnorm(x) }
 }
 
 pub fn swe_rad_midp(x1: f64, x0: f64) -> f64 {
-    unsafe {
-        raw::swe_rad_midp(x1, x0)
-    }
+    unsafe { raw::swe_rad_midp(x1, x0) }
 }
 
 pub fn swe_deg_midp(x1: f64, x0: f64) -> f64 {
-    unsafe {
-        raw::swe_deg_midp(x1, x0)
-    }
+    unsafe { raw::swe_deg_midp(x1, x0) }
 }
 
 pub fn swe_split_deg(
@@ -1496,71 +912,43 @@ pub fn swe_split_deg(
     dsecfr: *mut f64,
     isgn: *mut i32,
 ) {
-    unsafe {
-        raw::swe_split_deg(
-            ddeg,
-            roundflag,
-            ideg,
-            imin,
-            isec,
-            dsecfr,
-            isgn,
-        )
-    }
+    unsafe { raw::swe_split_deg(ddeg, roundflag, ideg, imin, isec, dsecfr, isgn) }
 }
 
 pub unsafe fn swe_csnorm(p: centisec) -> centisec {
-    unsafe {
-        raw::swe_csnorm(p)
-    }
+    unsafe { raw::swe_csnorm(p) }
 }
 
 pub fn swe_difcsn(p1: centisec, p2: centisec) -> centisec {
-    unsafe {
-        raw::swe_difcsn(p1, p2)
-    }
+    unsafe { raw::swe_difcsn(p1, p2) }
 }
 
 pub fn swe_difdegn(p1: f64, p2: f64) -> f64 {
-    unsafe {
-        raw::swe_difdegn(p1, p2)
-    }
+    unsafe { raw::swe_difdegn(p1, p2) }
 }
 
 pub unsafe fn swe_difcs2n(p1: centisec, p2: centisec) -> centisec {
-    unsafe {
-        raw::swe_difcs2n(p1, p2)
-    }
+    unsafe { raw::swe_difcs2n(p1, p2) }
 }
 
 pub fn swe_difdeg2n(p1: f64, p2: f64) -> f64 {
-    unsafe {
-        raw::swe_difdeg2n(p1, p2)
-    }
+    unsafe { raw::swe_difdeg2n(p1, p2) }
 }
 
 pub unsafe fn swe_difrad2n(p1: f64, p2: f64) -> f64 {
-    unsafe {
-        raw::swe_difrad2n(p1, p2)
-    }
+    unsafe { raw::swe_difrad2n(p1, p2) }
 }
 
 pub fn swe_csroundsec(x: centisec) -> centisec {
-    unsafe {
-        raw::swe_csroundsec(x)
-    }
+    unsafe { raw::swe_csroundsec(x) }
 }
 
 pub fn swe_d2l(x: f64) -> i32 {
-    unsafe {
-        raw::swe_d2l(x)
-    }
+    unsafe { raw::swe_d2l(x) }
 }
 
 pub fn swe_day_of_week(jd: f64) -> i32 {
-    unsafe {
-        raw::swe_day_of_week(jd)
-    }
+    unsafe { raw::swe_day_of_week(jd) }
 }
 
 pub fn swe_cs2timestr(
@@ -1571,12 +959,7 @@ pub fn swe_cs2timestr(
 ) -> *mut ::std::os::raw::c_char {
     unsafe {
         let suppressZero = bool_to_as_bool(suppressZero);
-        raw::swe_cs2timestr(
-            t,
-            sep,
-            suppressZero,
-            a,
-        )
+        raw::swe_cs2timestr(t, sep, suppressZero, a)
     }
 }
 
@@ -1586,28 +969,12 @@ pub fn swe_cs2lonlatstr(
     mchar: ::std::os::raw::c_char,
     s: *mut ::std::os::raw::c_char,
 ) -> *mut ::std::os::raw::c_char {
-    unsafe {
-        raw::swe_cs2lonlatstr(
-            t,
-            pchar,
-            mchar,
-            s,
-        )
-    }
+    unsafe { raw::swe_cs2lonlatstr(t, pchar, mchar, s) }
 }
 
-pub fn swe_cs2degstr(
-    t: centisec,
-    a: *mut ::std::os::raw::c_char,
-) -> *mut ::std::os::raw::c_char {
-    unsafe {
-        raw::swe_cs2degstr(
-            t,
-            a,
-        )
-    }
+pub fn swe_cs2degstr(t: centisec, a: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char {
+    unsafe { raw::swe_cs2degstr(t, a) }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -1620,6 +987,4 @@ mod tests {
         let hn = swe_house_name(1);
         assert_eq!(hn, "Placidus");
     }
-
 }
-

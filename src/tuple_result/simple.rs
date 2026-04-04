@@ -3,30 +3,17 @@ use crate::raw::centisec;
 use crate::util::*;
 //use crate::types::RAW_OK;
 
-// 
+//
 // These functions just pass simple data types and don't modify anything in place.
 // They only return new values
 //
 
-pub unsafe fn swe_julday(
-    year: i32,
-    month: i32,
-    day: i32,
-    hour: f64,
-    gregflag: i32,
-) -> f64 {
-    raw::swe_julday(
-        year,
-        month,
-        day,
-        hour,
-        gregflag,
-    )
+pub unsafe fn swe_julday(year: i32, month: i32, day: i32, hour: f64, gregflag: i32) -> f64 {
+    raw::swe_julday(year, month, day, hour, gregflag)
 }
 
-
 pub unsafe fn swe_set_topo(geolon: f64, geolat: f64, geoalt: f64) {
-    raw::swe_set_topo(geolon, geolat, geoalt)   
+    raw::swe_set_topo(geolon, geolat, geoalt)
 }
 
 pub unsafe fn swe_set_sid_mode(sid_mode: i32, t0: f64, ayan_t0: f64) {
@@ -63,7 +50,7 @@ pub unsafe fn swe_get_tid_acc() -> f64 {
 }
 
 pub unsafe fn swe_set_tid_acc(t_acc: f64) {
-    raw::swe_set_tid_acc(t_acc) 
+    raw::swe_set_tid_acc(t_acc)
 }
 
 pub unsafe fn swe_set_delta_t_userdef(dt: f64) {
@@ -121,4 +108,3 @@ pub unsafe fn swe_difdegn(p1: f64, p2: f64) -> f64 {
 pub unsafe fn swe_difcs2n(p1: centisec, p2: centisec) -> centisec {
     raw::swe_difcs2n(p1, p2)
 }
-

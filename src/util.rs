@@ -8,7 +8,7 @@ use std::ffi::CStr;
 pub fn bool_to_as_bool(b: bool) -> i32 {
     let r = match b {
         true => raw::MY_TRUE,
-        false => raw::MY_FALSE
+        false => raw::MY_FALSE,
     };
 
     r as i32
@@ -24,7 +24,7 @@ pub fn new_max_buffer() -> MaxBuffer {
 pub fn new_max_buffer_from_str(s: &str) -> MaxBuffer {
     let mut buff = [0; MAXCH];
 
-    for (i,el) in s.as_bytes().iter().enumerate() {
+    for (i, el) in s.as_bytes().iter().enumerate() {
         buff[i] = el.clone() as i8;
     }
 
@@ -53,4 +53,3 @@ pub unsafe fn serr_to_string(s: *mut ::std::os::raw::c_char) -> String {
     let serr: String = str_slice.to_owned();
     serr
 }
-
