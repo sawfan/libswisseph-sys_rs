@@ -9,4 +9,8 @@
 - Confirmed a native `cargo build` prints the generated `$OUT_DIR/bindings.rs` path (evidence that bindgen output is being produced).
 - Added the missing `add_c_files_from_list()` helper in `build.rs` so wasm targets can compile a curated subset of Swiss Ephemeris C sources.
 - Verified `cargo build` succeeds natively after the build script changes.
+- Converted the standalone `examples/wasi_web` crate into a repository Cargo example at `examples/wasi_web.rs`, exporting a small C ABI used by the web runner.
+- Updated `examples/wasi_web/web/Trunk.toml` to build `--example wasi_web` for `wasm32-wasip1` from the repo root and copy the resulting artifact from `target/.../examples/wasi_web.wasm` into the Trunk dist as `swisseph_wasi.wasm`.
+- Updated `build.rs` to avoid linking `-lm` on WASI targets (fixes `rust-lld: unable to find library -lm`).
+- Removed the nested example crate files (`examples/wasi_web/Cargo.toml`, `examples/wasi_web/build.rs`, `examples/wasi_web/src/lib.rs`) since they are no longer needed.
 
