@@ -1,0 +1,18 @@
+{
+  "mount": "ephe",
+  "files": [
+    {
+      "path": "seas_18.se1",
+      "optional": true
+    },
+    {
+      "path": "semo_18.se1",
+      "optional": true
+    },
+    {
+      "path": "sepl_18.se1",
+      "optional": true
+    }
+  ]
+}
+

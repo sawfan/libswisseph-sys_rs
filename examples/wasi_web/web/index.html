@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>swisseph_wasi (WASI in browser)</title>
+
+    <!-- Copy the entire assets directory into dist/assets/ -->
+    <link data-trunk rel="copy-dir" href="./assets" />
+
+    <style>
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        margin: 0;
+    	padding: 16px;
+        color: #111;
+      }
+
+      .row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 8px 0;
+      }
+
+      label {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+      }
+
+      input[type="date"],
+      input[type="number"] {
+        padding: 6px 8px;
+      }
+
+      button {
+        padding: 8px 12px;
+        font-weight: 600;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 12px;
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+        font-variant-numeric: tabular-nums;
+      }
+
+      th {
+        background: #f5f5f5;
+      }
+
+      pre {
+        background: #111;
+        color: #eee;
+        padding: 12px;
+        border-radius: 8px;
+        overflow: auto;
+      }
+
+      .muted {
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>swisseph_wasi (WASI in browser)</h1>
+
+    <p class="muted">
+      This demo computes planetary positions using Swiss Ephemeris via a WASI module
+      running in the browser.
+    </p>
+
+    <div class="row">
+      <label>
+        Date (UTC)
+        <input id="date" type="date" />
+      </label>
+
+      <label>
+        Hour UT
+        <input id="hour" type="number" min="0" max="23" step="1" value="0" />
+      </label>
+
+      <label>
+        Minute
+        <input id="minute" type="number" min="0" max="59" step="1" value="0" />
+      </label>
+
+      <label>
+        Second
+        <input id="second" type="number" min="0" max="59" step="1" value="0" />
+      </label>
+
+      <button id="calc">Calculate</button>
+      <span id="status">Idle</span>
+    </div>
+
+    <h2>Planetary positions</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Body</th>
+          <th>Longitude (deg)</th>
+          <th>Latitude (deg)</th>
+          <th>Distance (AU)</th>
+          <th>Speed lon (deg/day)</th>
+          <th>Speed lat (deg/day)</th>
+          <th>Speed dist (AU/day)</th>
+        </tr>
+      </thead>
+      <tbody id="results"></tbody>
+    </table>
+
+    <h2>Log</h2>
+    <pre id="output"></pre>
+
+    <!-- Ensure Trunk copies this module into dist (and can minify/hash it). -->
+    <script type="module" data-trunk src="./main.js"></script>
+  </body>
+</html>
+
