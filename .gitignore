@@ -1,2 +1,6 @@
 Cargo.lock
 /target
+examples/wasi_web/target
+examples/wasi_web/swisseph_wasi.wasm
+examples/wasi_web/dist
+
