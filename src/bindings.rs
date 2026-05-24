@@ -4536,6 +4536,14 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn swe_set_ephe_path(path: *const ::std::os::raw::c_char);
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct swe_vfs_api {
+    _unused: [u8; 0],
+}
+unsafe extern "C" {
+    pub fn swe_set_vfs_api(api: *const swe_vfs_api);
+}
 unsafe extern "C" {
     pub fn swe_set_jpl_file(fname: *const ::std::os::raw::c_char);
 }
