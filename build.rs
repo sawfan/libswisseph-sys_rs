@@ -17,10 +17,12 @@ fn detect_wasi_sysroot_from_compiler(compiler: &Path, clang_target: &str) -> Opt
         if !out.status.success() {
             return None;
         }
+
         let s = String::from_utf8_lossy(&out.stdout).trim().to_string();
         if s.is_empty() {
             return None;
         }
+
         if Path::new(&s).exists() {
             Some(s)
         } else {
@@ -65,15 +67,15 @@ fn main() {
     let target = env::var("TARGET").unwrap_or_default();
     let clang_target = target.clone();
 
+    let is_wasm_target = target.starts_with("wasm32");
+    let is_wasi_target = target.starts_with("wasm32-wasi") || target.starts_with("wasm32-wasip1");
+
     let mut cfg = cc::Build::new();
     cfg.warnings(false);
     cfg.target(&clang_target);
 
     // Match upstream sweph-wasm behavior.
     cfg.define("USECASE", "2");
-
-    let is_wasm_target = target.starts_with("wasm32");
-    let is_wasi_target = target.starts_with("wasm32-wasi") || target.starts_with("wasm32-wasip1");
 
     let resolved_wasi_sysroot = if is_wasi_target {
         wasi_sysroot().or_else(|| {
@@ -98,10 +100,12 @@ fn main() {
                 "swephlib.c",
                 "swecl.c",
                 "swehel.c",
+                // Keep this wasm-only. Do not compile this into native Linux builds.
+                "wasm_shims.c",
             ],
         );
     } else {
-        add_c_files(&mut cfg, "libswisseph");
+        add_native_c_files(&mut cfg, "libswisseph");
     }
 
     if is_wasi_target {
@@ -122,7 +126,7 @@ fn main() {
     println!("cargo:rustc-link-lib=static=swisseph");
 }
 
-fn add_c_files(build: &mut cc::Build, path: impl AsRef<Path>) {
+fn add_native_c_files(build: &mut cc::Build, path: impl AsRef<Path>) {
     let path = path.as_ref();
     if !path.exists() {
         panic!("Path {} does not exist", path.display());
@@ -138,22 +142,31 @@ fn add_c_files(build: &mut cc::Build, path: impl AsRef<Path>) {
             continue;
         }
 
-        if path.extension().and_then(|s| s.to_str()) == Some("c") {
-            if let Some(stem) = path.file_stem().and_then(|s| s.to_str()) {
-                let exclude_because_has_main = [
-                    "sweasp",
-                    "swetest",
-                    "swevents",
-                    "swephgen4",
-                    "swemini",
-                    "sweephe4",
-                ];
-
-                if !exclude_because_has_main.contains(&stem) {
-                    build.file(&path);
-                }
-            }
+        if path.extension().and_then(|s| s.to_str()) != Some("c") {
+            continue;
         }
+
+        let Some(stem) = path.file_stem().and_then(|s| s.to_str()) else {
+            continue;
+        };
+
+        let excluded_native_sources = [
+            // These are standalone programs or generator/test tools with their own main().
+            "sweasp",
+            "swetest",
+            "swevents",
+            "swephgen4",
+            "swemini",
+            "sweephe4",
+            // This file is intended for wasm builds and can corrupt native startup/link behavior.
+            "wasm_shims",
+        ];
+
+        if excluded_native_sources.contains(&stem) {
+            continue;
+        }
+
+        build.file(&path);
     }
 }
 
