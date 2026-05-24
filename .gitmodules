@@ -1,4 +1,4 @@
 [submodule "libswisseph"]
 	path = libswisseph
-	url = https://github.com/sawfan/libswisseph-sys_rs.git
+	url = https://github.com/sawfan/swisseph.git
 	branch = vfs
