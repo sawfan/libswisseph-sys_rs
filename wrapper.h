@@ -7,11 +7,12 @@
 #include "libswisseph/swejpl.h"
 #include "libswisseph/swemptab.h"
 #include "libswisseph/swenut2000a.h"
-//#include "libswisseph/sweephe4.h"
 
-// // Windows DLL 
+// VFS API: swe_vfs_api, swe_set_vfs_api, swi_get_vfs_api
+#include "libswisseph/vfs/swevfs.h"
+
+// // Windows DLL
 //#include "libswisseph/swedll.h"
 //
 //// swedate include jul function that is already in exp
 //#include "libswisseph/swedate.h"
-

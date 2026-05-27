@@ -18,6 +18,23 @@ if ! command -v bindgen >/dev/null 2>&1; then
     exit 1
 fi
 
+if [[ ! -f "$WRAPPER" ]]; then
+    echo "error: wrapper.h not found: $WRAPPER"
+    exit 1
+fi
+
+if [[ ! -d "$LIB_DIR" ]]; then
+    echo "error: libswisseph directory not found: $LIB_DIR"
+    echo "run: git submodule update --init --recursive"
+    exit 1
+fi
+
+if [[ ! -f "$LIB_DIR/swephexp.h" ]]; then
+    echo "error: libswisseph looks incomplete: missing $LIB_DIR/swephexp.h"
+    echo "run: git submodule update --init --recursive"
+    exit 1
+fi
+
 COMMON_ARGS=(
     "$WRAPPER"
     --output "$TMP_FILE"
@@ -120,23 +137,57 @@ BLOCKLIST_ARGS=(
 CLANG_ARGS=(
     "-I$LIB_DIR"
     "-I$ROOT_DIR"
+    "-I$LIB_DIR/vfs"
     "-DUSECASE=2"
     "-D_FILE_OFFSET_BITS=64"
 )
 
-if [[ "${DEFINE_NO_SWE_GLP:-0}" == "1" ]]; then
+if [[ "${DEFINE_NO_SWE_GLP:-1}" == "1" ]]; then
     CLANG_ARGS+=("-DNO_SWE_GLP")
 fi
 
+# Optional target mode. For normal native binding generation, you may leave
+# CLANG_TARGET unset. For checking wasm-facing headers, use:
+#   CLANG_TARGET=wasm32-unknown-unknown ./scripts/regenerate-bindings.sh
 if [[ -n "${CLANG_TARGET:-}" ]]; then
     CLANG_ARGS+=("--target=$CLANG_TARGET")
 fi
 
+# If using a WASI SDK sysroot, modern wasi-sdk may place libc headers under:
+#   $WASI_SYSROOT/include/wasm32-wasip1
+# rather than directly under:
+#   $WASI_SYSROOT/include
 if [[ -n "${WASI_SYSROOT:-}" ]]; then
     CLANG_ARGS+=("--sysroot=$WASI_SYSROOT")
+
+    if [[ -d "$WASI_SYSROOT/include/wasm32-wasip1" ]]; then
+        CLANG_ARGS+=("-I$WASI_SYSROOT/include/wasm32-wasip1")
+    elif [[ -d "$WASI_SYSROOT/include/wasm32-wasi" ]]; then
+        CLANG_ARGS+=("-I$WASI_SYSROOT/include/wasm32-wasi")
+    elif [[ -f "$WASI_SYSROOT/include/math.h" ]]; then
+        CLANG_ARGS+=("-I$WASI_SYSROOT/include")
+    else
+        echo "warning: WASI_SYSROOT is set, but no expected libc include directory was found:"
+        echo "  $WASI_SYSROOT/include/wasm32-wasip1"
+        echo "  $WASI_SYSROOT/include/wasm32-wasi"
+        echo "  $WASI_SYSROOT/include/math.h"
+    fi
+fi
+
+# Keep this optional because the shim is only relevant to the wasm/no-JPL build.
+if [[ "${INCLUDE_NO_JPL_SHIM:-0}" == "1" ]]; then
+    if [[ -f "$LIB_DIR/se_no_jpl_shim.h" ]]; then
+        CLANG_ARGS+=("-include" "$LIB_DIR/se_no_jpl_shim.h")
+    else
+        echo "error: INCLUDE_NO_JPL_SHIM=1 but missing $LIB_DIR/se_no_jpl_shim.h"
+        exit 1
+    fi
 fi
 
 echo "Generating temporary bindings to $TMP_FILE"
+echo "Wrapper: $WRAPPER"
+echo "Clang args:"
+printf '  %q\n' "${CLANG_ARGS[@]}"
 
 bindgen \
     "${COMMON_ARGS[@]}" \
@@ -148,6 +199,20 @@ FUNCTION_COUNT="$(grep -c 'pub fn ' "$TMP_FILE" || true)"
 
 if [[ "$FUNCTION_COUNT" -lt 20 ]]; then
     echo "error: generated bindings look incomplete ($FUNCTION_COUNT functions)"
+    echo "keeping existing $OUT_FILE unchanged"
+    exit 1
+fi
+
+if ! grep -q 'pub struct swe_vfs_api' "$TMP_FILE"; then
+    echo "error: generated bindings are missing pub struct swe_vfs_api"
+    echo "make sure wrapper.h includes: #include \"libswisseph/vfs/swevfs.h\""
+    echo "keeping existing $OUT_FILE unchanged"
+    exit 1
+fi
+
+if ! grep -q 'pub fn swe_set_vfs_api' "$TMP_FILE"; then
+    echo "error: generated bindings are missing pub fn swe_set_vfs_api"
+    echo "make sure wrapper.h includes: #include \"libswisseph/vfs/swevfs.h\""
     echo "keeping existing $OUT_FILE unchanged"
     exit 1
 fi

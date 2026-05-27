@@ -1,6 +1,6 @@
 [package]
 name = "swisseph-sys"
-version = "0.1.2"
+version = "0.2.0"
 links = "swisseph"
 build = "build.rs"
 edition = "2021"
@@ -19,8 +19,8 @@ exclude = [
 
 [features]
 default = []
-wasi = []
 vfs = []
+wasi = []
 
 [build-dependencies]
 cc = { version = "1.0.43", features = ["parallel"] }

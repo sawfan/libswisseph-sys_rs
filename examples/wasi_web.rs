@@ -8,7 +8,7 @@
 use std::cell::RefCell;
 use std::ffi::{c_char, CStr, CString};
 
-use libswisseph_sys::raw;
+use swisseph_sys::raw;
 
 thread_local! {
     static LAST_ERROR: RefCell<[u8; 512]> = RefCell::new([0; 512]);

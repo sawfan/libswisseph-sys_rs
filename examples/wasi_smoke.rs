@@ -9,7 +9,7 @@
 
 use std::ffi::{CStr, CString};
 
-use libswisseph_sys::raw;
+use swisseph_sys::raw;
 
 fn main() {
     // Point Swiss Ephemeris at the directory where ephemeris files are located.
