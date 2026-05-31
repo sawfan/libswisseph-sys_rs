@@ -152,7 +152,7 @@ fn configure_wasm_c_build(build: &mut cc::Build, sysroot: Option<&str>) {
         );
     };
 
-    build.flag(&format!("--sysroot={sysroot}"));
+    build.flag(format!("--sysroot={sysroot}"));
 
     let include_root = Path::new(sysroot).join("include");
     let wasip1_include = include_root.join("wasm32-wasip1");
