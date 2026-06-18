@@ -1,3 +1,5 @@
+#![allow(clippy::all)]
+
 //! WASI-in-the-browser Swiss Ephemeris demo.
 //!
 //! This example is intended to be compiled to `wasm32-wasip1` and loaded by the
